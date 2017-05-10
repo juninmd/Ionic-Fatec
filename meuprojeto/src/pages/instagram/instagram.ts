@@ -24,9 +24,10 @@ export class InstagramPage {
   }
 
   doRefresh(refresher) {
-    setTimeout(() => {
-      refresher.complete();
-    }, 1000);
+      this.instagramProvider.getFotos().subscribe(q => {
+        this.timeline = q
+        refresher.complete();
+      }, err => alert("Erro ao ler posts"));
   }
 
   ionViewDidLoad() {
