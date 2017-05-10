@@ -12,7 +12,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class InstagramPage {
 
-  galeria: any = ["http://img.cinemablend.com/cb/d/3/1/d/6/9/d31d696881fbf9fe0e9800a6af80de6d2de696babcfa2790f5b8d585da18d0af.jpg"];
+  galeria: any = [];
   timeline: any = [];
   aba: string = '1';
   constructor(public navCtrl: NavController, public navParams: NavParams, private instagramProvider: InstagramProvider, private camera: Camera) {
@@ -50,7 +50,7 @@ export class InstagramPage {
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.galeria.push(base64Image);
-      
+
       let post = {
         ID: 'GOKU',
         URL: base64Image,
