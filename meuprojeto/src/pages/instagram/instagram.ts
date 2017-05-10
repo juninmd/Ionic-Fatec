@@ -49,11 +49,12 @@ export class InstagramPage {
 
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-
+      this.galeria.push(base64Image);
+      
       let post = {
         ID: 'GOKU',
         URL: base64Image,
-        DESCRICAO : "Foto irada!"
+        DESCRICAO: "Foto irada!"
       };
       this.instagramProvider.postFoto(post).subscribe(q => this.ionViewDidLoad(), err => alert("Erro ao gravar post"));
     }, (err) => {
