@@ -18,9 +18,10 @@ export class InstagramPage {
   }
 
   toggle() {
-    alert('Eu não faço nada!');
+    this.timeline = [];
+    this.galeria = [];
   }
-  
+
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 

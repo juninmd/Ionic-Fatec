@@ -21,6 +21,12 @@
   <div [ngSwitch]="aba">
     <div *ngSwitchCase="1">
 
+      <ion-row *ngIf="timeline.length == 0">
+        <ion-item>
+          <p>Nenhuma publicação :c</p>
+        </ion-item>
+      </ion-row>
+
       <ion-row *ngFor="let item of timeline">
         <ion-card>
           <ion-item>
