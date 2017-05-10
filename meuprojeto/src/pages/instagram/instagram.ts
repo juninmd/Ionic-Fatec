@@ -24,10 +24,10 @@ export class InstagramPage {
   }
 
   doRefresh(refresher) {
-      this.instagramProvider.getFotos().subscribe(q => {
-        this.timeline = q
-        refresher.complete();
-      }, err => alert("Erro ao ler posts"));
+    this.instagramProvider.getFotos().subscribe(q => {
+      this.timeline = q
+      refresher.complete();
+    }, err => alert("Erro ao ler posts"));
   }
 
   ionViewDidLoad() {
@@ -43,7 +43,8 @@ export class InstagramPage {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
 
     this.camera.getPicture(options).then((imageData) => {
@@ -53,7 +54,7 @@ export class InstagramPage {
         ID: 'GOKU',
         URL: base64Image
       };
-      this.instagramProvider.postFoto(post).subscribe(q => this.timeline = q, err => alert("Erro ao gravar post"));
+      this.instagramProvider.postFoto(post).subscribe(q => this.ionViewDidLoad(), err => alert("Erro ao gravar post"));
     }, (err) => {
       // Handle error
     });
