@@ -16,7 +16,7 @@ export class HomePage {
   }
 
   goTo(page: string) {
-    this.navCtrl.push(page);
+    this.navCtrl.setRoot(page);
   }
 
 }

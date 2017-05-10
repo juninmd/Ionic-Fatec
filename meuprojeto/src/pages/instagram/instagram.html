@@ -2,31 +2,129 @@
 
   <ion-navbar color="instagram" center text-center>
     <ion-title>Instagram Ionic</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggle()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="" refreshingSpinner="circles" refreshingText="Atualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
 
+  <div [ngSwitch]="aba">
+    <div *ngSwitchCase="1">
+
+      <ion-row *ngFor="let item of timeline">
+        <ion-card>
+          <ion-item>
+            <ion-avatar item-left>
+              <img [src]="item.FOTOPERFIL">
+            </ion-avatar>
+            <h2>{{item.ID}}</h2>
+            <p>{{item.DATA | date : 'short'}}</p>
+          </ion-item>
+          <img [src]="item.URL" />
+
+          <ion-card-content center text-center>
+            <p>{{item.DESCRICAO}}</p>
+          </ion-card-content>
+
+          <ion-row>
+            <ion-col col-s6>
+              <button ion-button clear item-left full color="black">
+                <ion-icon name="thumbs-up"></ion-icon>
+                <span *ngIf="item.CURTIDAS != 0; else semcurtidas">
+                   {{item.CURTIDAS}} Like(s)
+                </span>
+                <ng-template #semcurtidas>Sem likes</ng-template>
+              </button>
+            </ion-col>
+
+            <ion-col col-s6>
+              <button ion-button clear item-right full color="black">
+                <ion-icon name="text"> </ion-icon>
+                <span *ngIf="item.COMENTARIOS.length != 0; else semcomentarios">
+                   {{item.COMENTARIOS.length}} Comentários(s)
+                </span>
+                <ng-template #semcomentarios>Sem coments</ng-template>
+              </button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="item.COMENTARIOS.length > 0">
+            <ion-list>
+              <ion-item *ngFor="let item of item.COMENTARIOS">
+                <ion-avatar item-left>
+                  <img [src]="item.FOTOPERFIL">
+                </ion-avatar>
+                <h2>{{item.ID}}</h2>
+                <p>{{item.COMENTARIO}}</p>
+              </ion-item>
+            </ion-list>
+          </ion-row>
+
+        </ion-card>
+      </ion-row>
+
+    </div>
+    <div *ngSwitchCase="3">
+
+      <ion-list>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="https://instagram.fplu1-1.fna.fbcdn.net/t51.2885-19/s150x150/18382021_353256151743489_3605989215269027840_a.jpg">
+          </ion-avatar>
+          <h2>Antonio Carlos</h2>
+          <p>15 seguidores</p>
+          <button ion-button item-right clear>Editar perfil</button>
+        </ion-item>
+
+        <ion-item>
+          <ion-col col-s6>
+            <button ion-button item-right clear>1024 Publicações</button>
+          </ion-col>
+
+          <ion-col col-s6>
+            <button ion-button item-right clear>224 Seguindo</button>
+          </ion-col>
+
+        </ion-item>
+      </ion-list>
+
+      <ion-row *ngFor="let item of galeria">
+        <ion-item>
+          <img [src]="item" alt="">
+        </ion-item>
+      </ion-row>
+
+    </div>
+  </div>
 </ion-content>
+
 <ion-footer>
   <ion-row>
 
     <ion-col>
-      <button ion-button full clear large color="dark">
+      <button ion-button full clear large color="dark" (click)="changeAba('1')">
         <ion-icon name="home"></ion-icon>
       </button>
     </ion-col>
 
     <ion-col>
-      <button ion-button full clear large color="dark">
+      <button ion-button full clear large color="dark" (click)="camera()">
         <ion-icon name="camera"></ion-icon>
       </button>
     </ion-col>
 
     <ion-col>
-      <button ion-button full clear large color="dark">
+      <button ion-button full clear large color="dark" (click)="changeAba('3')">
         <ion-icon name="contact"></ion-icon>
       </button>
     </ion-col>
