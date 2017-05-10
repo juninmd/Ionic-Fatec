@@ -52,7 +52,8 @@ export class InstagramPage {
 
       let post = {
         ID: 'GOKU',
-        URL: base64Image
+        URL: base64Image,
+        DESCRICAO : "Foto irada!"
       };
       this.instagramProvider.postFoto(post).subscribe(q => this.ionViewDidLoad(), err => alert("Erro ao gravar post"));
     }, (err) => {
